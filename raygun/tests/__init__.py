@@ -6,11 +6,11 @@ Tests for raygun.
 
 NOTE : I gave up trying to avoid hardcoding the paths to the test
 data files. As a result, you have to invoke nosetests from the module
-folder (i.e., the one that has raygun's __init__.py).
+folder (i.e., the one that has raygun's setup.py).
 """
 
-QUERYFILE = os.path.join( os.getcwd(), 'tests/query.fa' )
-TESTDB = os.path.join( os.getcwd(), 'tests/stap_16S.fa' )
+QUERYFILE = os.path.join( os.getcwd(), 'raygun/tests/query.fa' )
+TESTDB = os.path.join( os.getcwd(), 'raygun/tests/stap_16S.fa' )
 
 def test_load_raygun() :
     rg = raygun.RayGun( TESTDB )
