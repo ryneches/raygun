@@ -1,9 +1,9 @@
-"""
-Simple BLAST wrapper.
-"""
 import os
 import shutil
-import Bio.Seq
+
+"""
+A simple BLAST wrapper. Use raygun to zap things.
+"""
 
 FIELDS = [ 'query', 'subject', 'percent_id', 'length', 'missmatches',
 'gaps', 'qstart', 'qend', 'sstart', 'send', 'e', 'bit' ]
@@ -17,14 +17,14 @@ class RayGun :
 
     def __init__( self, infile ) :
         path = os.path.abspath( infile )
-        self.DIR = '/tmp/blaster-' + str(int(os.times()[4]))
+        self.DIR = '/tmp/raygun-' + str(int(os.times()[4]))
         os.mkdir( self.DIR )
-        cmd = 'cd ' + self.DIR + '; formatdb -p F -i ' + path + ' -n blaster'
+        cmd = 'cd ' + self.DIR + '; formatdb -p F -i ' + path + ' -n raygun'
         assert os.system( cmd ) == 0
 
     def blastfile( self, infile, e ) :
         path = os.path.abspath( infile )
-        cmd = 'cd ' + self.DIR + '; blastall -p blastn -d blaster -i ' + path + ' -m 8 -e ' + str(e)
+        cmd = 'cd ' + self.DIR + '; blastall -p blastn -d raygun -i ' + path + ' -m 8 -e ' + str(e)
         m = os.popen( cmd )
         hits = []
         for hit in m.read().strip().split('\n') :
