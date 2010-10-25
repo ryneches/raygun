@@ -20,17 +20,21 @@ USAGE
 -----
 
     import raygun
+    import cleverness
     rg = raygun.RayGun( 'ZOMG_DNA_OMG_OMG.fa' )
     
     hits = rg.blastfile( 'very_clever_query.fa' )
+
+    results = []
     for hit in hits :
-        data1 = amazing_function_of_amazingness( hit[ 'subject' ] )
+        results.append( cleverness.function_of_amazingness( hit[ 'subject' ] ) )
     
     hits = rg.blastseq( 'aaaggtttttagtccatcgacccta' )
+    
     for hit in hits :
-        data2 = gee_wiz( hit[ 'length' ] )
+        results.append( cleverness.gee_wiz( hit[ 'length' ] ) )
 
-    output_phd_thesis( data1, data2 )
+    cleverness.output_phd_thesis( results )
 
 FIELDS
 ------
