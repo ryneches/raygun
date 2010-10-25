@@ -5,6 +5,8 @@ import shutil
 A simple BLAST wrapper. Use raygun to zap things.
 """
 
+TMPDIR = '/tmp/'
+
 DEFAULT_E = 0.001
 
 FIELDS = [ 'query', 'subject', 'percent_id', 'length', 'missmatches',
@@ -19,7 +21,7 @@ class RayGun :
 
     def __init__( self, infile ) :
         path = os.path.abspath( infile )
-        self.DIR = '/tmp/raygun-' + str(int(os.times()[4]))
+        self.DIR = TMPDIR + 'raygun-' + str(int(os.times()[4]))
         os.mkdir( self.DIR )
         cmd = 'cd ' + self.DIR + '; formatdb -p F -i ' + path + ' -n raygun'
         assert os.system( cmd ) == 0
