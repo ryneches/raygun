@@ -1,0 +1,5 @@
+I got very tired of invoking formatdb and blastall from the command
+line and parsing the results. So I wrote this very simple wrapper to
+do it. This is not intended to be an efficient way of using BLAST.
+
+It's dumb, but handy. You can zap things with it.
