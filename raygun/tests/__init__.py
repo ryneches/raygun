@@ -1,6 +1,20 @@
 import raygun
 import os.path
 
+try :
+    import Bio.SeqRecord
+    import Bio.Seq
+    BIOPYTHON = True
+except ImportError :
+    BIOPYTHON = False
+
+try :
+    import pygr.sequence
+    PYGR = True
+except ImportError :
+    PYGR = False
+
+
 """
 Tests for raygun. 
 
@@ -29,8 +43,23 @@ def test_query_file() :
         lengths.append( hit[ 'length' ] )
     assert max( lengths ) == 895
 
-def test_query_seq_biopython() :
+def test_no_hit() :
     rg = raygun.RayGun( TESTDB )
+    assert rg.blastseq( 'atatgaacatgcatagatcccta' ) == []
+
+def test_query_seq_biopython() :
+    if BIOPYTHON :
+        rg = raygun.RayGun( TESTDB )
+        seqr = Bio.SeqRecord.SeqRecord( 'GTGGGCAAGTTCTGGTGTCAGCCGCCGCG' )
+        hits = rg.blastseq( seqr, e=0.1 )
+        assert hits[0]['length'] == 29
+        seq = Bio.Seq.Seq( 'GTGGGCAAGTTCTGGTGTCAGCCGCCGCG' )
+        hits = rg.blastseq( seq, e=0.1 )
+        assert hits[0]['length'] == 29
 
 def test_query_seq_pygr() :
-    rg = raygun.RayGun( TESTDB )
+    if PYGR :
+        rg = raygun.RayGun( TESTDB )
+        seq = pygr.sequence.Sequence( 'GTGGGCAAGTTCTGGTGTCAGCCGCCGCG', 'pygrseq' )
+        hits = rg.blastseq( seq, e=0.1 )
+        assert hits[0]['length'] == 29

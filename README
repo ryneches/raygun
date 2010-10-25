@@ -2,19 +2,32 @@ I got very tired of invoking formatdb and blastall from the command
 line and parsing the results. So I wrote this very simple wrapper to
 do it. This is not intended to be an efficient way of using BLAST.
 
-It's dumb, but handy. You can zap things with it.
+It's dumb but quick. It's point-and-shoot, like a raygun should be.
+
 
 INSTALLING
 ----------
 
+Do the usual python thing.
+
     $ cd raygun
     $ python setup.py install --prefix=/someplace/PYTHONPATH/knows/about
+
 
 TESTS
 -----
 
+Tests are designed to be used with nose. 
+
+    http://somethingaboutorange.com/mrl/projects/nose/
+
+The tests (stupidly) depend on hard-coded paths to find the test data
+files, so you have to run nosetests from the main module directory
+(i.e., the one that has setup.py in it).
+
     $ cd raygun
     $ nosetests
+
 
 USAGE
 -----
@@ -36,6 +49,7 @@ USAGE
 
     cleverness.output_phd_thesis( results )
 
+
 FIELDS
 ------
     
@@ -53,6 +67,7 @@ FIELDS
     send        : subject sequence alingment end coordinate
     e           : e-value
     bit         : bit score
+
 
 LEGAL STUFF
 -----------
