@@ -36,22 +36,22 @@ class RayGun :
         cmd = 'cd ' + self.DIR + '; blastall -p blastn -d raygun -i ' + path + ' -m 8 -e ' + str(e)
         m = os.popen( cmd )
         hits = []
-
+        
         for hit in m.read().strip().split('\n') :
-
+            
             # bail if we didn't get any hits
             if hit == '' :
                 return hits
-
+            
             h = dict(zip( FIELDS, hit.split() ))
-
+            
             for field in INTFIELDS :
                 h[ field ] = int( h[ field ] )
             for field in FLOATFIELDS :
                 h[ field ] = float( h[ field ] )
-
+            
             hits.append( h )
-
+            
         return hits
 
     def blastseq( self, seq, queryname = 'query', e = DEFAULT_E ) :
@@ -62,17 +62,17 @@ class RayGun :
         identifier will be 'query' unless you set queryname.
         """
         q = self.DIR + '/query.fa'
-
+        
         # handle BioPython sequence objects
         if type( seq ).__module__ == 'Bio.Seq' :
             seq = str( seq )
         if type( seq ).__module__ == 'Bio.SeqRecord' :
             seq = str( seq.seq )
-
+        
         # handle pygr sequence objects
         if type( seq ).__module__ == 'pygr.sequence' :
             seq = str( seq )
-
+        
         open( q, 'w' ).write( '>' + queryname +'\n' + str(seq) )
         return self.blastfile( q, e )
             
